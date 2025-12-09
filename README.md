@@ -33,6 +33,20 @@ When running in an interactive terminal session, wallabean provides a REPL for a
 
 Admin users technically have an API to create users, but there's no UI/UX for it, and it's not well tested.
 
+
+## Creating a user and signing in on Android
+
+In the REPL:
+
+```lua
+adduser('awesomeuser123', 'secretpassword456')
+createclient('awesomeuser123', 'Android app')
+```
+
+(NOTE: make sure "Android app" is capitalized and named exactly as is!)
+
+then connect to Wallabean via your browser, enter username/password, then scan the QR code on Android and re-enter the password within the Wallabag Android App. Alternatively, just connect in the Wallabag Android App by providing ip, port, username and password.
+
 ## License
 
 MIT. redbean contains software licensed ISC, MIT, BSD-2, BSD-3, zlib. The transitive closure of legal notices can be found inside the binary structure. The licenses are inside the binary and the upstream redbean projects believes that this satisfactorily automates legal compliance, for the redbean project and anyone who uses it.
