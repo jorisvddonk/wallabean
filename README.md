@@ -29,6 +29,7 @@ When running in an interactive terminal session, wallabean provides a REPL for a
 * `makeadmin('username')`: Make a user admin
 * `listusers()`: List all users
 * `createclient('username', 'client_name')`: Create API clients
+* `listclients()`: List all API clients
 * `setloglevel('DEBUG'|'INFO'|'WARN'|'ERROR'|'FATAL')`: Set log level
 
 Admin users technically have an API to create users, but there's no UI/UX for it, and it's not well tested.
@@ -46,6 +47,17 @@ createclient('awesomeuser123', 'Android app')
 (NOTE: make sure "Android app" is capitalized and named exactly as is!)
 
 then connect to Wallabean via your browser, enter username/password, then scan the QR code on Android and re-enter the password within the Wallabag Android App. Alternatively, just connect in the Wallabag Android App by providing ip, port, username and password.
+
+## Sign in on other devices
+
+For other Wallabag-compatible clients, create a client and get the credentials:
+
+```lua
+createclient('awesomeuser123', 'My Client')
+listclients()
+```
+
+Use the displayed client ID and client secret along with your username and password to authenticate with other Wallabag clients.
 
 ## License
 

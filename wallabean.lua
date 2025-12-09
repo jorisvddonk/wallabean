@@ -54,6 +54,7 @@ print("  help() - Show all available commands")
 print("  adduser('username', 'password', 'email', 'name') - Add a new user")
 print("  makeadmin('username') - Make a user admin (admin API functionality)")
 print("  listusers() - List all users")
+print("  listclients() - List all API clients")
 print("  setloglevel('DEBUG'|'INFO'|'WARN'|'ERROR'|'FATAL') - Set log level")
 print("Press Ctrl+C to quit")
 print("================================")
@@ -1702,6 +1703,24 @@ function createclient(username, client_name)
     end
 end
 
+function listclients()
+    local stmt = db:prepare('SELECT c.id, c.client_id, c.client_secret, c.name, u.username FROM clients c JOIN users u ON c.user_id = u.id ORDER BY c.id')
+    if not stmt then
+        print("Database error: " .. db:errmsg())
+        return
+    end
+    
+    print("Clients:")
+    print("ID | Client ID | Client Secret | Name | Username")
+    print("---|-----------|---------------|------|----------")
+    
+    for row in stmt:nrows() do
+        print(string.format("%d | %s | %s | %s | %s", 
+            row.id, row.client_id, row.client_secret, row.name, row.username))
+    end
+    stmt:finalize()
+end
+
 function removeadmin(username)
     if not username then
         print("Usage: removeadmin('username')")
@@ -1825,6 +1844,9 @@ function help()
     print("  createclient('username', 'client_name')")
     print("    - Create an API client for a user")
     print("    - Example: createclient('joris', 'Android App')")
+    print("")
+    print("  listclients()")
+    print("    - List all API clients with their details")
     print("")
     print("Logging:")
     print("  setloglevel('DEBUG'|'INFO'|'WARN'|'ERROR'|'FATAL')")
